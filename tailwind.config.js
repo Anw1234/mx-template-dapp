@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        primary: '#1E40AF',
+        secondary: '#1F2937'
+      },
       fontFamily: {
-        sans: ['"Inter"', 'sans-serif']
+        sans: ['Inter', 'sans-serif']
       }
-    },
-    backgroundImage: {
-      // eslint-disable-next-line quotes
-      'mvx-white': "url('../multiversx-white.svg')"
     }
   },
   plugins: []
