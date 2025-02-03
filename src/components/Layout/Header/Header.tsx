@@ -1,110 +1,77 @@
-import { useState } from 'react';
-import { Button } from 'components/Button';
-import { MxLink } from 'components/MxLink';
-import { environment } from 'config';
-import { logout } from 'helpers';
-import { useGetIsLoggedIn } from 'hooks';
-import { RouteNamesEnum } from 'localConstants';
-import { useMatch } from 'react-router-dom';
-import Link from 'next/link';
-import Image from 'next/image';
-
-const callbackUrl = `${window.location.origin}/unlock`;
-const onRedirect = undefined;
-const shouldAttemptReLogin = false;
-const options = {
-  shouldBroadcastLogoutAcrossTabs: true,
-  hasConsentPopup: false,
-};
-
-export const Header = () => {
-  const isLoggedIn = useGetIsLoggedIn();
-  const isUnlockRoute = Boolean(useMatch(RouteNamesEnum.unlock));
-  const ConnectButton = isUnlockRoute ? null : (
-    <MxLink to={RouteNamesEnum.unlock} className="px-4 py-2 text-white bg-gray-800 rounded-md">
-      Connect
-    </MxLink>
-  );
-
-  const handleLogout = () => {
-    sessionStorage.clear();
-    logout(callbackUrl, onRedirect, shouldAttemptReLogin, options);
-  };
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-
+const Hero = () => {
   return (
-    <header className="flex items-center justify-between px-24 py-4 bg-white shadow-md">
-      {/* Left Side - Logo */}
-      <div className="flex items-center space-x-6">
-        <Link href="/">
-          <Image src="/Logo.svg" alt="TeachFi" width={150} height={40} />
-        </Link>
+    <div className="relative bg-white">
+      <div className="container flex flex-col items-center px-6 py-16 mx-auto md:flex-row">
+        <div className="text-center md:w-1/2 md:text-left">
+        
+          {/* Desktop Text */}
+          <h1 className="hidden text-4xl font-medium leading-tight md:block md:text-6xl text-primary">
+            <span className="bg-gradient-to-r from-[#20B3A7] to-[#055370] bg-clip-text text-transparent">
+              Decentralized Education
+            </span>
+            <div className="text-gray-800">for a Better Tomorrow</div>
+          </h1>
 
-        {/* Navigation */}
-        <nav>
-          <ul className="flex space-x-6 text-gray-600">
-            <li><Link href="#" className="transition hover:text-primary">Home</Link></li>
-            <li><Link href="#" className="transition hover:text-primary">Vision</Link></li>
-            <li><Link href="#" className="transition hover:text-primary">Statistics</Link></li>
-            <li><Link href="#" className="transition hover:text-primary">Partners</Link></li>
-            <li><Link href="#" className="transition hover:text-primary">Team</Link></li>
-            <li><Link href="#" className="transition hover:text-primary">About</Link></li>
-            <li className="relative">
-              <button className="flex items-center transition hover:text-primary" onClick={toggleDropdown}>
-                Applications
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5.293 7.707a1 1 0 011.414 0L10 11.586l3.293-3.879a1 1 0 111.414 1.414l-4 4.828a1 1 0 01-1.414 0l-4-4.828a1 1 0 010-1.414z" clipRule="evenodd"/>
-                </svg>
-              </button>
-              {isDropdownOpen && (
-                <div className="absolute top-full mt-2 w-[36rem] bg-white shadow-lg rounded-lg z-10 flex">
-                  <div className="w-2/3 p-4">
-                    <ul className="space-y-4">
-                      {["book", "dao", "dex", "nft"].map((item) => (
-                        <li key={item}>
-                          <Link href="#" className="flex items-start space-x-3">
-                            <Image src={`/launchpad/${item}.svg`} alt={item} width={24} height={24} />
-                            <div>
-                              <h4 className="font-semibold text-primary">{item.toUpperCase()}</h4>
-                              <p className="text-sm text-gray-500">Short description here.</p>
-                            </div>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="flex flex-col items-center justify-center w-1/2 p-4 rounded-r-lg bg-gray-50">
-                    <iframe width="260" height="180" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="rounded-lg"></iframe>
-                    <h4 className="mt-4 font-semibold text-gray-700">We&apos;ve just released an update!</h4>
-                    <p className="mt-2 text-sm text-center text-gray-500">Check out the all new dashboard view. Pages now load up to 3x faster.</p>
-                    <div className="flex mt-4 space-x-2">
-                      <button className="text-sm text-primary">Dismiss</button>
-                      <Link href="#" className="text-sm font-medium text-primary">Changelog</Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </li>
-          </ul>
-        </nav>
-      </div>
+          {/* Mobile Text */}
+          <h1 className="block text-4xl font-medium leading-tight md:hidden text-primary">
+            <span className="text-black">Empowering </span>
+            <span className="bg-gradient-to-r from-[#20B3A7] to-[#055370] bg-clip-text text-transparent">
+              Innovation
+            </span>
+            <span className="text-black"> for the Future.</span>
+          </h1>
 
-      {/* Right Side - Connect Button */}
-      <div className="flex items-center space-x-4">
-        {/* <div className="flex items-center gap-1">
-          <div className="w-2 h-2 bg-green-500 rounded-full" />
-          <p className="text-gray-600">{environment}</p>
-        </div> */}
-        {isLoggedIn ? (
-          <Button onClick={handleLogout} className="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200">
-            Close
-          </Button>
-        ) : (
-          ConnectButton
-        )}
+          {/* Desktop Text */}
+          <p className="max-w-md mt-6 text-lg leading-relaxed text-gray-600 md:max-w-lg">
+            <span className="hidden md:block">
+              Empowering schools, teachers, and students with blockchain technology to build a transparent, sustainable, and innovative education system for generations to come.
+            </span>
+          </p>
+
+          {/* Mobile Text */}
+          <p className="max-w-md mt-6 text-lg leading-relaxed text-gray-600 md:max-w-lg">
+            <span className="block md:hidden">
+              Driving collaboration and discovery through a decentralized, transparent, and community-powered approach to science and education.
+            </span>
+          </p>
+
+          <button className="flex items-center justify-center w-full px-8 py-4 mt-8 text-lg text-gray-700 transition border border-gray-300 rounded-xl hover:bg-gray-100 md:w-auto md:px-6 md:py-3">
+            <span className="flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-5 h-5 mr-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.868v4.264a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 12c0-4.97-4.03-9-9-9S3 7.03 3 12s4.03 9 9 9 9-4.03 9-9z"
+                />
+              </svg>
+              Play Video
+            </span>
+          </button>
+        </div>
+        <div className="flex justify-center mt-8 md:w-1/2 md:mt-0">
+          <img
+            src="/hero-image.png"
+            alt="Hero Illustration"
+            width={500}
+            height={400}
+            className="rounded-md"
+          />
+        </div>
       </div>
-    </header>
+    </div>
   );
 };
+
+export default Hero;
